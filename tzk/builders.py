@@ -166,7 +166,7 @@ def _find_kill_phrases(phrases: Set[str]):
     tid_files = (Path(build_state['public_wiki_folder']) / "tiddlers").glob("**/*.tid")
 
     for tid_file in tid_files:
-        with tid_file.open() as f:
+        with tid_file.open(encoding="utf8") as f:
             for line in f:
                 for regex in regexes:
                     if re.search(regex, line):
@@ -593,7 +593,7 @@ def replace_private_people(
 
     for tiddler in tid_files:
         dirty = False
-        with tiddler.open() as f:
+        with tiddler.open(encoding="utf8") as f:
             lines = f.readlines()
         for i in range(len(lines)):
             private_line = _privatize_line(lines[i], replacement_table, replace_link_text)
