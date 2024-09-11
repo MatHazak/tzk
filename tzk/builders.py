@@ -151,8 +151,9 @@ def export_public_tiddlers(export_filter: str) -> None:
                           for inclusion in the new wiki.
     """
     assert 'public_wiki_folder' in build_state, "new_output_folder builder must run first"
+    clean_export_filter = export_filter.replace("\n", "").strip()
     tw.exec((
-        ("savewikifolder", build_state['public_wiki_folder'], export_filter),
+        ("savewikifolder", build_state['public_wiki_folder'], clean_export_filter),
     ))
 
 
