@@ -37,9 +37,9 @@ def exec(args: Sequence[Sequence[str]], base_wiki_folder: str = None) -> int:
     # must pushd into base wiki to find the tiddlywiki node_modules
     if base_wiki_folder is not None:
         with pushd(base_wiki_folder):
-            call_args = ["npx", "tiddlywiki"]
+            call_args = ["npx.cmd", "tiddlywiki"]
     else:
-        call_args = ["npx", "tiddlywiki"]
+        call_args = ["npx.cmd", "tiddlywiki"]
 
     if base_wiki_folder is not None:
         call_args.append(base_wiki_folder)
@@ -87,7 +87,7 @@ def _init_npm(wiki_name: str, tw_version_spec: str, author: str) -> None:
         f.write(PACKAGE_JSON)
 
     print("tzk: Installing npm packages from package.json...")
-    subprocess.check_call(("npm", "install"))
+    subprocess.check_call(("npm.cmd", "install"))
 
 
 def _init_tw(wiki_name: str) -> None:
@@ -104,7 +104,7 @@ def _init_tw(wiki_name: str) -> None:
         old_edition_path = os.environ.get('TIDDLYWIKI_EDITION_PATH')
         os.environ['TIDDLYWIKI_EDITION_PATH'] = str(Path(__file__).parent / "editions")
         try:
-            subprocess.check_call(("npx", "tiddlywiki", "--init", "tzk"))
+            subprocess.check_call(("npx.cmd", "tiddlywiki", "--init", "tzk"))
         finally:
             if old_edition_path:
                 os.environ['TIDDLYWIKI_EDITION_PATH'] = old_edition_path
